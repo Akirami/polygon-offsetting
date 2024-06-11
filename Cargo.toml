@@ -2,6 +2,11 @@
 name = "offsetting"
 version = "0.1.0"
 edition = "2021"
+license-file = "LICENSE.txt"
+description = "polygon offsetting crate"
+repository = "https://github.com/Akirami/polygon-offsetting"
+readme = "README.md"
+keywords = ["polygon", "offset", "geometry", "2d"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
