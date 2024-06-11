@@ -3,7 +3,7 @@ use std::collections::HashMap;
 #[derive(Default, Debug, Clone)]
 pub struct Offsets {
     pub contour: Vec<(f64, f64)>,
-    pub offset_area: f64,
+    pub area: f64,
     pub perimeter: f64,
 }
 
@@ -586,7 +586,7 @@ impl Polygon {
             points.push(points[0]);
 
             let offset = Offsets {
-                offset_area: compute_area(&points),
+                area: compute_area(&points),
                 perimeter: compute_perimeter(&points),
                 contour: points,
             };
@@ -608,7 +608,7 @@ impl Polygon {
         
         // And keep only the biggest
         let offset_polygon: &Polygon = areas[areas.len() - 1].1;
-        offsets.offset_area = areas[areas.len() - 1].0;
+        offsets.area = areas[areas.len() - 1].0;
               
         offset_polygon.edges.iter().for_each(|edge| {
             offsets.contour.push((
