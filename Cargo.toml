@@ -1,6 +1,6 @@
 [package]
-name = "offsetting"
-version = "0.1.0"
+name = "polygon-offsetting"
+version = "0.1.1"
 edition = "2021"
 license-file = "LICENSE"
 description = "polygon offsetting crate"
