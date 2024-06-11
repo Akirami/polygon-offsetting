@@ -7,36 +7,36 @@ pub struct Offsets {
     pub perimeter: f64,
 }
 
-#[derive(Default, Debug, Copy, Clone)]
-pub struct Vertex {
-    pub x: f64,
-    pub y: f64,
-    pub is_intersect: bool
-}
-
-#[derive(Default, Debug, Copy, Clone)]
-pub struct Edge {
-    pub p1: usize,
-    pub p2: usize,
-    pub index: usize,
-    pub outward_normal: Vertex,
-}
-
 #[derive(Default, Debug, Clone)]
 pub struct Polygon {
-    pub edges: Vec<Edge>,
-    pub vertices: HashMap<usize, Vertex>,
-    pub offset_margin: f64,
+    edges: Vec<Edge>,
+    vertices: HashMap<usize, Vertex>,
+    offset_margin: f64,
+}
+
+#[derive(Default, Debug, Copy, Clone)]
+struct Vertex {
+    x: f64,
+    y: f64,
+    is_intersect: bool
+}
+
+#[derive(Default, Debug, Copy, Clone)]
+struct Edge {
+    p1: usize,
+    p2: usize,
+    index: usize,
+    outward_normal: Vertex,
 }
 
 #[derive(Default, Clone, Debug)]
-pub struct Segment {
-    pub p1: (f64, f64),
-    pub p2: (f64, f64),
+struct Segment {
+    p1: (f64, f64),
+    p2: (f64, f64),
 }
 
 #[inline]
-pub fn compute_area(contours: &Vec<(f64, f64)>) -> f64 {
+fn compute_area(contours: &Vec<(f64, f64)>) -> f64 {
     let mut a = 0.0;
     if contours.len() == 0 { return 0.0 }
     for i in 0..contours.len() - 1 {
@@ -45,7 +45,7 @@ pub fn compute_area(contours: &Vec<(f64, f64)>) -> f64 {
     (a * -0.5).abs()
 }
 
-pub fn compute_perimeter(contour2d: &Vec<(f64, f64)>) -> f64 {
+fn compute_perimeter(contour2d: &Vec<(f64, f64)>) -> f64 {
     let mut perimeter2d = 0.;
     for i in 0..(contour2d.len() - 1) {
         let p1 = &contour2d[i];
@@ -59,41 +59,22 @@ pub fn compute_perimeter(contour2d: &Vec<(f64, f64)>) -> f64 {
 }
 
 #[inline]
-pub fn get_dist(p1: (f64, f64), p2: (f64, f64)) -> f64 {
+fn get_dist(p1: (f64, f64), p2: (f64, f64)) -> f64 {
     ((p2.0 - p1.0).powi(2) + (p2.1 - p1.1).powi(2)).sqrt()
 }
 
 #[inline]
-pub fn vector_sub(v1: (f64, f64), v2: (f64, f64)) -> (f64, f64) {
+fn vector_sub(v1: (f64, f64), v2: (f64, f64)) -> (f64, f64) {
     (v1.0 - v2.0, v1.1 - v2.1)
 }
 
 #[inline]
-pub fn vector_add(v1: (f64, f64), v2: (f64, f64)) -> (f64, f64) {
+fn vector_add(v1: (f64, f64), v2: (f64, f64)) -> (f64, f64) {
     (v1.0 + v2.0, v1.1 + v2.1)
 }
 
 #[inline]
-pub fn vector_scale(v1: (f64, f64), len: f64) -> (f64, f64) {
-    (v1.0 * len , v1.1 * len)
-}
-
-#[inline]
-pub fn vector_dot(v1: (f64, f64), v2: (f64, f64)) -> f64 {
-    (v1.0 * v2.0) + (v1.1 * v2.1)
-}
-
-#[inline]
-pub fn normalize_vec(v1: (f64, f64)) -> (f64, f64) {
-    let len: f64 = f64::sqrt(vector_dot(v1, v1));
-    if len == 0.0 {
-        return (v1.0, v1.1)
-    };
-    (v1.0 / len, v1.1 / len)
-}
-
-#[inline]
-pub fn reverse_segments(sgmts: &Vec<Segment>) -> Vec<Segment> {
+fn reverse_segments(sgmts: &Vec<Segment>) -> Vec<Segment> {
     let mut segments: Vec<Segment> = Vec::new();
 
     for s in sgmts.iter().rev() {
@@ -470,7 +451,7 @@ impl Polygon {
     }
 
     // convert tuples to a Vec of Segment
-    pub fn tuples_to_segments(contour1: &Vec<(f64, f64)>) -> Vec<Segment> {
+    fn tuples_to_segments(contour1: &Vec<(f64, f64)>) -> Vec<Segment> {
         let mut segments: Vec<Segment> = Vec::new();
 
         for i in 1..contour1.len() {
