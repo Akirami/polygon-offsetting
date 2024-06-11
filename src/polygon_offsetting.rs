@@ -431,7 +431,7 @@ impl Polygon {
          vtxs
     }
 
-    pub fn get_polygon_area<'a>(&self, poly: &'a mut Polygon) -> (f64, &'a Polygon) {
+    fn get_polygon_area<'a>(&self, poly: &'a mut Polygon) -> (f64, &'a Polygon) {
         let mut contours: Vec<(f64, f64)> = Vec::new();
 
         let edges = &mut poly.edges;
