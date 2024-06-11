@@ -134,7 +134,7 @@ pub fn draw_svg_offset(
         path = format!("{} {} {} ", path, p2.0, (viewbox[3] - viewbox[1]) - (p2.1 - viewbox[1]));
         
         
-        let color = "#000000";
+        let color = "#999999";
         let width = 1.;
 
         txt = format!("{}<path style='fill:none;stroke-width:{};stroke:{};' d='{}' id='{}' />\n", txt, width, color, path, 0);
