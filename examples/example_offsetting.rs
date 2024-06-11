@@ -18,7 +18,7 @@ pub struct Polygon {
 
 use polygon_offsetting::draw_svg::draw_svg_offset;
 use polygon_offsetting::Polygon;
-use polygon_offsetting::Offsets;
+use polygon_offsetting::Offset;
 
 fn example_offsetting() -> Result <(), Box<dyn std::error::Error>> {
 	// The initial polygon must be closed
@@ -35,14 +35,14 @@ fn example_offsetting() -> Result <(), Box<dyn std::error::Error>> {
 	];
 
 	// The size of our margin offset, if this value is egal to 0 no offsetting will be computed
-	let offset_size: f64 = 2.25;
+	let offset_size: f64 = 12.25;
 	// Tolerance is the arc segments precision in polygon offsetting (rounded corner)
 	let tolerance: f64 = 0.1;
 
 	let mut polygon = Polygon::new(&points, offset_size).map_err(|e| { e })?;
-	let offset: Offsets = polygon.offsetting(tolerance).map_err(|e| { e })?;
+	let offset: Offset = polygon.offsetting(tolerance).map_err(|e| { e })?;
 
-	println!("initial contour length: {:?}", points.len());
+	println!("Initial contour length: {:?}", points.len());
 	println!("Offset contour length: {:?}", offset.contour.len());
 	println!("offset area: {:?}", offset.area);
 	println!("offset perimeter: {:?}", offset.perimeter);

@@ -1,4 +1,4 @@
-use crate::Offsets;
+use crate::Offset;
 
 use std::path::Path;
 use std::fs::File;
@@ -12,7 +12,7 @@ pub struct Segm {
 
 pub fn draw_svg_offset(
     initial_contour: &Vec<(f64, f64)>,
-    offset: &mut Offsets,
+    offset: &mut Offset,
     dir_path: String,
     filename: String) -> Result <(), Box<dyn std::error::Error>>
 {

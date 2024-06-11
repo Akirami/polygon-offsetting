@@ -1,7 +1,7 @@
 use std::collections::HashMap;
 
 #[derive(Default, Debug, Clone)]
-pub struct Offsets {
+pub struct Offset {
     pub contour: Vec<(f64, f64)>,
     pub area: f64,
     pub perimeter: f64,
@@ -549,15 +549,15 @@ impl Polygon {
         Ok(initial_polygon.create_polygon(vertices, offset_size, true))
     }
 
-    pub fn offsetting(&mut self, tolerance: f64) -> Result <Offsets, Box<dyn std::error::Error>> {
-        let mut offsets: Offsets = Offsets::default();
+    pub fn offsetting(&mut self, tolerance: f64) -> Result <Offset, Box<dyn std::error::Error>> {
+        let mut offsets: Offset = Offset::default();
         let mut areas: Vec<(f64, &Polygon)> = Vec::new();
 
         if tolerance <= 0.0 {
             return Err("The tolerance can't be below or egal to 0".into())
         }
 
-        // Offset 0.0, only return an Offsets struct without computing
+        // Offset 0.0, only return an Offset struct without computing
         if self.offset_margin == 0.0 {
             let mut points: Vec<(f64, f64)> = Vec::new();
             self.edges.iter().for_each(|e| {
@@ -566,7 +566,7 @@ impl Polygon {
             });
             points.push(points[0]);
 
-            let offset = Offsets {
+            let offset = Offset {
                 area: compute_area(&points),
                 perimeter: compute_perimeter(&points),
                 contour: points,
