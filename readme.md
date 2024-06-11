@@ -53,6 +53,5 @@ fn example_offsetting() -> Result <(), Box<dyn std::error::Error>> {
 }
 ```
 
-![Example svg output](./examples/svg/example_offsetting.svg)
-<img src="./examples/svg/example_offsetting.svg" width = "200">
+<img src="./examples/svg/example_offsetting.svg" width = "400">
 
