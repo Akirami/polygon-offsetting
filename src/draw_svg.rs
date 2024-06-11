@@ -12,10 +12,10 @@ pub struct Segm {
 
 pub fn draw_svg_offset(
     initial_contour: &Vec<(f64, f64)>,
-    offset: &mut Offset,
-    dir_path: String,
-    filename: String) -> Result <(), Box<dyn std::error::Error>>
-{
+    offset: &Offset,
+    dir_path: &str,
+    filename: &str
+) -> Result <(), Box<dyn std::error::Error>> {
     let mut segments: Vec<Segm> = Vec::new();
     let mut segms: Vec<Segm> = Vec::new();
 

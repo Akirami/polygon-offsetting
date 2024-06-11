@@ -41,9 +41,9 @@ fn example_offsetting() -> Result <(), Box<dyn std::error::Error>> {
     
     draw_svg_offset(
 	    &points,
-	    &mut offset.clone(),
-	    "/examples/svg/".to_string(),
-        "example_offsetting".to_string(),
+	    &offset,
+	    "/examples/svg/",
+        "example_offsetting",
 	).map_err(|e| { 
 	    print!("Error on creating offset svg: {:?}", e);
 	    e 
