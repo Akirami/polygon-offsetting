@@ -34,9 +34,9 @@ fn example_offsetting() -> Result <(), Box<dyn std::error::Error>> {
 	let mut polygon = Polygon::new(&points, offset_size).map_err(|e| { e })?;
 	let offset: Offset = polygon.offsetting(tolerance).map_err(|e| { e })?;
 
-	println!("initial contour length: {:?}", points.len());
+	println!("Initial contour length: {:?}", points.len());
 	println!("Offset contour length: {:?}", offset.contour.len());
-	println!("offset area: {:?}", offset.offset_area);
+	println!("offset area: {:?}", offset.area);
 	println!("offset perimeter: {:?}", offset.perimeter);
     
     draw_svg_offset(
