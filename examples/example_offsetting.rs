@@ -16,9 +16,9 @@ pub struct Polygon {
 
 */
 
-use offsetting::draw_svg::draw_svg_offset;
-use offsetting::Polygon;
-use offsetting::Offsets;
+use polygon_offsetting::draw_svg::draw_svg_offset;
+use polygon_offsetting::Polygon;
+use polygon_offsetting::Offsets;
 
 fn example_offsetting() -> Result <(), Box<dyn std::error::Error>> {
 	// The initial polygon must be closed
