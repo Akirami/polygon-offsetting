@@ -2,7 +2,7 @@
 name = "offsetting"
 version = "0.1.0"
 edition = "2021"
-license-file = "LICENSE.txt"
+license-file = "LICENSE"
 description = "polygon offsetting crate"
 repository = "https://github.com/Akirami/polygon-offsetting"
 readme = "README.md"
