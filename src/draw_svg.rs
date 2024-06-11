@@ -120,7 +120,7 @@ pub fn draw_svg_offset(
 
     let mut txt = format!(
         "<?xml version='1.0' encoding='UTF-8' standalone='no'?>
-            <svg xmlns='http://www.w3.org/2000/svg' viewBox='{} {} {} {}' id='export'>\n", 
+            <svg xmlns='http://www.w3.org/2000/svg' viewBox='{} {} {} {}' id='export' style='background-color:white'>\n", 
         viewbox[0] - 50., viewbox[1] - 50. , viewbox[2] + 100., viewbox[3] + 100. ).to_string();
 
     let mut i: usize = 0;
@@ -134,7 +134,7 @@ pub fn draw_svg_offset(
         path = format!("{} {} {} ", path, p2.0, (viewbox[3] - viewbox[1]) - (p2.1 - viewbox[1]));
         
         
-        let color = "#999999";
+        let color = "#000000";
         let width = 1.;
 
         txt = format!("{}<path style='fill:none;stroke-width:{};stroke:{};' d='{}' id='{}' />\n", txt, width, color, path, 0);
