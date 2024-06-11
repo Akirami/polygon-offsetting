@@ -52,9 +52,6 @@ fn compute_perimeter(contour2d: &Vec<(f64, f64)>) -> f64 {
         let p2 = &contour2d[i + 1];
         perimeter2d += ((p2.0 - p1.0).powi(2) + (p2.1 - p1.1).powi(2)).sqrt();
     }
-    let p1 = &contour2d[contour2d.len() - 1];
-    let p2 = &contour2d[0];
-    perimeter2d += ((p2.0 - p1.0).powi(2) + (p2.1 - p1.1).powi(2)).sqrt();
     perimeter2d
 }
 
