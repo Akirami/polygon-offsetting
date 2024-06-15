@@ -44,8 +44,8 @@ fn example_offsetting() -> Result <(), Box<dyn std::error::Error>> {
 
 	println!("Initial contour length: {:?}", points.len());
 	println!("Offset contour length: {:?}", offset.contour.len());
-	println!("offset area: {:?}", offset.area);
-	println!("offset perimeter: {:?}", offset.perimeter);
+	println!("Offset area: {:?}", offset.area);
+	println!("Offset perimeter: {:?}", offset.perimeter);
     
     draw_svg_offset(
 	    &points,
@@ -53,7 +53,7 @@ fn example_offsetting() -> Result <(), Box<dyn std::error::Error>> {
 	    "/examples/svg/",
         "example_offsetting",
 	).map_err(|e| { 
-	    print!("Error on creating offset svg: {:?}", e);
+	    print!("Error creating offset svg: {:?}", e);
 	    e 
 	})?;
 

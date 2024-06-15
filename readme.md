@@ -3,9 +3,10 @@
 Small crate, no dependencies, to offset a polygon (only margin).
 
 ## Features
-  - from a simple Vec of 2D coordinates (f64 tuples), return its offset contour, perimeter and area.
+  - very fast
+  - from a simple Vec of 2D coordinates (f64 tuples), compute its offset contour, its perimeter and area
   - the initial polygon must be closed 
-  - you must ensure your polygon is not self intersecting
+  - you must ensure that your polygon does not intersect itself
 
 ## Examples
 
@@ -13,7 +14,7 @@ Small crate, no dependencies, to offset a polygon (only margin).
 
 ```rust
 fn example_offsetting() -> Result <(), Box<dyn std::error::Error>> {
-	// The initial polygon must be closed
+	// the initial polygon must be closed
 	let points: Vec<(f64, f64)> = vec![
 		(0., 0.),
 		(100., 0.),
@@ -26,9 +27,9 @@ fn example_offsetting() -> Result <(), Box<dyn std::error::Error>> {
 		(0.0, 0.0)
 	];
 
-	// The size of our margin offset, if this value is egal to 0 no offsetting will be computed
+	// the size of our margin, if egal to 0 no offsetting will be computed
 	let offset_size: f64 = 12.25;
-	// Tolerance is the arc segments precision in polygon offsetting (rounded corner)
+	// tolerance is the arc segments precision in polygon offsetting (rounded corner)
 	let tolerance: f64 = 0.1;
 
 	let mut polygon = Polygon::new(&points, offset_size).map_err(|e| { e })?;

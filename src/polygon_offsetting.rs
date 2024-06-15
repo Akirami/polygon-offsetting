@@ -177,7 +177,7 @@ impl Polygon {
                 let arc_center = &self.vertices.get(&i).unwrap();
                 let arc_vertices = &self.append_arc(arc_center, self.offset_margin, &prev_edge.1, &this_edge.0, tolerance);
 
-                // if not, adding arc segments, welds & boundaries matching our welded / bounded edges
+                // if not, adding arc segments & boundaries matching our bounded edges
 
                 // adding index and vertex to our vertices container
                 for av in arc_vertices.iter() {
@@ -190,7 +190,7 @@ impl Polygon {
             }
         }
 
-        // Finally, recreate a polygon from vertices, welds ans boundaries
+        // Finally, recreate a polygon from vertices and boundaries
         let margin_polygon = self.create_polygon(vertices, self.offset_margin, false);
         margin_polygon
     }
@@ -508,35 +508,28 @@ impl Polygon {
         offset_size: f64,
     ) -> Result <Polygon, Box<dyn std::error::Error>> {
 
-        let mut sub_blank_segments: Vec<Segment> = Polygon::tuples_to_segments(&initial_contour);
-        sub_blank_segments.retain(|s| {
-            get_dist(s.p1, s.p2) != 0.
-        });
+        let mut new_segments: Vec<Segment> = Polygon::tuples_to_segments(&initial_contour);
+        // remove contiguous points with same coords
+        new_segments.retain(|s| { get_dist(s.p1, s.p2) != 0. });
 
-        let value = sub_blank_segments.iter().fold(
+        // check if our polygon is closed
+        if initial_contour[0] != initial_contour[initial_contour.len() - 1] {
+            return Err(format!("Unclosed polygon").into())
+        }
+
+        // check the direction of our polygon
+        let value = new_segments.iter().fold(
             0.,
             |acc, seg|
             acc + (seg.p2.0 - seg.p1.0) * (seg.p2.1 + seg.p1.1)
         );
 
-        if value > 0. { sub_blank_segments = reverse_segments(&sub_blank_segments); }
+        // reverse it if clockwise
+        if value > 0. { new_segments = reverse_segments(&new_segments); }
 
-        // compute extra margin for our welds
-        let mut segments: Vec<Segment> = Vec::new();
-        for sgmt in sub_blank_segments.iter_mut() {
-            segments.push( Segment { p1: sgmt.p1, p2: sgmt.p2 });
-        }
-
-        // Offset 0.0 mean we don't compute offseting
-        if offset_size == 0.0 {
-            segments.clear();
-            sub_blank_segments.iter().for_each(|sgmt| {
-                segments.push( Segment { p1: sgmt.p1, p2: sgmt.p2 });
-            });
-        }
 
         let mut points: Vec<(f64, f64)> = Vec::new();
-        for s in segments.iter() {
+        for s in new_segments.iter() {
             points.push(s.p1);
         }
         points.push(points[0]);
@@ -554,7 +547,7 @@ impl Polygon {
             return Err("The tolerance can't be below or egal to 0".into())
         }
 
-        // Offset 0.0, only return an Offset struct without computing
+        // Offset 0.0, only return an Offset struct without computing its margin
         if self.offset_margin == 0.0 {
             let mut points: Vec<(f64, f64)> = Vec::new();
             self.edges.iter().for_each(|e| {
